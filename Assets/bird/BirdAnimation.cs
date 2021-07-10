@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Bird;
+using static BirdMain;
 
 public class BirdAnimation : MonoBehaviour
 {
-    private Bird main;
+    private BirdMain main;
     private Animator anim;
 
     private static readonly int FlyingBlend = Animator.StringToHash("Flying Blend");
@@ -18,7 +18,7 @@ public class BirdAnimation : MonoBehaviour
 
     private void Awake()
     {
-        main = GetComponent<Bird>();
+        main = GetComponent<BirdMain>();
         anim = GetComponent<Animator>();
         
         stateString.Add(S.Gliding, "Flying Blend Tree");
@@ -29,11 +29,6 @@ public class BirdAnimation : MonoBehaviour
         stateString.Add(S.TakingOff, "Take Off");
     }
 
-    private void Start()
-    {
-        
-    }
-    
     private void Update()
     {
         ChangeBlend(blend);

@@ -2,18 +2,19 @@ using System;
 using System.Collections;
 using System.Linq.Expressions;
 using UnityEngine;
-using static Bird;
+using static BirdMain;
 
 public class BirdController : MonoBehaviour
 {
-    private Bird main;
+    private BirdMain main;
     private Rigidbody rb;
-
+    
+    public Vector3 target;
     public float desiredHeight;
 
     private void Awake()
     {
-        main = GetComponent<Bird>();
+        main = GetComponent<BirdMain>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -38,6 +39,9 @@ public class BirdController : MonoBehaviour
     private void FixedUpdate()
     {
         var vel = rb.velocity;
+
+        rb.MovePosition(transform.position - transform.forward * Time.fixedDeltaTime);
+
         var blend = Mathf.Clamp(main.anim.blend, .01f, .66f);
 
         switch (main.state)
@@ -47,8 +51,13 @@ public class BirdController : MonoBehaviour
                 vel.y = Mathf.Clamp(vel.y, glideFallSpeed, 0f);
                 break;
             case (S.Flapping):
-                var forceMult = heightCheckFlapMult;
-                rb.AddForce(transform.up * (push * flapForce * forceMult));
+                heightCheckFlapMult = Mathf.Lerp(
+                    heightCheckFlapMult, 
+                    Mathf.Sqrt(1 - (curToDes * curToDes)),     // unit circle equation
+                    // -(curToDes*curToDes) + 1,                   // negative exponential equation
+                    Time.fixedDeltaTime);
+                print("HeightCheckMult" + heightCheckFlapMult);
+                rb.AddForce(transform.up * (push * flapForce * heightCheckFlapMult));
                 break;
             case (S.Diving):
                 vel.y -= .01f / (blend * dragMult);
@@ -66,31 +75,32 @@ public class BirdController : MonoBehaviour
         {
             print("Cannot set velocity to: " + vel);
         }
+
+        // Move(transform.forward, 1f);
     }
 
     public float heightCheckDist = 15f, heightCorrectionOffset = 2f;
-    private float heightCheckFlapMult = 0;
+    private float heightCheckFlapMult = 0, curToDes;
     private IEnumerator CheckHeight()
     {
         while (true)
         {
-            if (Physics.Raycast(new Ray(
-                    rb.position, 
-                    -rb.transform.up), 
-                out var hit, heightCheckDist)) //
+            if (Physics.Raycast(new 
+                Ray(rb.position, -rb.transform.up), 
+                    out var hit, heightCheckDist))
             {
                 var dist = hit.distance;
+                // print("Distance to ground: " + dist);
                 if (desiredHeight - dist > heightCorrectionOffset)
                 {
-                    var curToDes = dist / desiredHeight;
-                    heightCheckFlapMult = 
-                        Mathf.Lerp(
-                            heightCheckFlapMult, 
-                            Mathf.Sqrt(1 - (curToDes * curToDes)),
-                            .2f); //
+                    curToDes = dist / desiredHeight;
                     main.SetState(S.Flapping);
                     main.anim.blend = 
                         (heightCheckFlapMult * main.anim.GLIDE_BLEND) + main.anim.GLIDE_BLEND;
+                }
+                else if (dist - desiredHeight > heightCorrectionOffset * 2f)
+                {
+                    main.SetState(S.Diving);
                 }
                 else if (dist - desiredHeight > heightCorrectionOffset)
                 {
