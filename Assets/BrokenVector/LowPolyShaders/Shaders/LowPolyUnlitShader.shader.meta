@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 098d4ffc7d7b82d4db28426a03a46477
+labels:
+- Unlit
+- shader
+- Material
+- LowPoly
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

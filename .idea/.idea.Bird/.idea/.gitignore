@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.Bird.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Game Dev\Unity\Projects\Bird\Bird\.idea\.idea.Bird\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
