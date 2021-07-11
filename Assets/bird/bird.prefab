@@ -326,8 +326,8 @@ MonoBehaviour:
   dragMult: 1
   flapForce: 5
   glideFallSpeed: -0.1
-  diveFallSpeed: -1.5
-  heightCheckDist: 15
+  diveFallSpeed: -7
+  heightCheckDist: 100
   heightCorrectionOffset: 2
 --- !u!54 &2586410732257043009
 Rigidbody:
@@ -353,7 +353,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2586410732257043013}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.5146375
   m_Height: 10.05804
@@ -449,13 +449,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3397313952233136178}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000028163195}
-  m_LocalPosition: {x: 0, y: 6.6400003, z: 35.66}
+  m_LocalRotation: {x: 0.0000006607128, y: -0.9720916, z: 0.23460156, w: 0.00000273772}
+  m_LocalPosition: {x: 0, y: 16.68, z: 24.43}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 2931586583096211711}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.136, y: -180, z: 0}
 --- !u!20 &3397313952233136177
 Camera:
   m_ObjectHideFlags: 0

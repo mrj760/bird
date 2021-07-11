@@ -13,8 +13,6 @@ public class BirdAnimation : MonoBehaviour
 
     private Dictionary <S, string> stateString = new Dictionary<S, string>();
 
-    public float blend=0, speed=1;
-    
 
     private void Awake()
     {
@@ -31,18 +29,27 @@ public class BirdAnimation : MonoBehaviour
 
     private void Update()
     {
-        ChangeBlend(blend);
-        ChangeSpeed(speed);
     }
 
-    public void ChangeBlend(float blend)
+    public void SetBlend(float blend)
     {
         anim.SetFloat(FlyingBlend, blend);
     }
 
-    public void ChangeSpeed(float mult)
+    public float GetBlend()
     {
-        anim.SetFloat(SpeedMult, mult);
+        return anim.GetFloat(FlyingBlend);
+    }
+
+    public void SetSpeed(float s)
+    {
+        // anim.SetFloat(SpeedMult, mult);
+        anim.speed = s;
+    }
+
+    public float GetSpeed()
+    {
+        return anim.speed;
     }
 
     private const int numBlends = 3;
@@ -55,23 +62,23 @@ public class BirdAnimation : MonoBehaviour
     {
         if (stateString.TryGetValue(state, out var str))
         {
-            switch (state)
-            {
-                case (S.Diving):
-                    blend = DIVE_BLEND;
-                    break;
-                case (S.Gliding):
-                    blend = GLIDE_BLEND;
-                    break;
-                case (S.Flapping):
-                    blend = FLAP_BLEND;
-                    break;
-                case (S.TakingOff):
-                    blend = GLIDE_BLEND;
-                    break;
-                default:
-                    break;
-            }
+            // switch (state)
+            // {
+            //     case (S.Diving):
+            //         // blend = DIVE_BLEND;
+            //         break;
+            //     case (S.Gliding):
+            //         // blend = GLIDE_BLEND;
+            //         break;
+            //     case (S.Flapping):
+            //         // blend = FLAP_BLEND;
+            //         break;
+            //     case (S.TakingOff):
+            //         // blend = GLIDE_BLEND;
+            //         break;
+            //     default:
+            //         break;
+            // }
             anim.Play(str);
         }
         else

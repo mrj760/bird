@@ -40,9 +40,9 @@ public class BirdController : MonoBehaviour
     {
         var vel = rb.velocity;
 
-        rb.MovePosition(transform.position - transform.forward * Time.fixedDeltaTime);
+        vel = transform.forward * Time.fixedDeltaTime;
 
-        var blend = Mathf.Clamp(main.anim.blend, .01f, .66f);
+        var blend = Mathf.Clamp(main.anim.GetBlend(), .01f, .66f);
 
         switch (main.state)
         {
@@ -95,8 +95,8 @@ public class BirdController : MonoBehaviour
                 {
                     curToDes = dist / desiredHeight;
                     main.SetState(S.Flapping);
-                    main.anim.blend = 
-                        (heightCheckFlapMult * main.anim.GLIDE_BLEND) + main.anim.GLIDE_BLEND;
+                    main.anim.SetBlend(
+                        (heightCheckFlapMult * main.anim.GLIDE_BLEND) + main.anim.GLIDE_BLEND);
                 }
                 else if (dist - desiredHeight > heightCorrectionOffset * 2f)
                 {
@@ -112,6 +112,16 @@ public class BirdController : MonoBehaviour
                 main.SetState(S.Gliding);
             }
 
+            yield return new WaitForSeconds(.2f);
+        }
+    }
+
+    private IEnumerator CheckTurn()
+    {
+        while (true)
+        {
+            
+            
             yield return new WaitForSeconds(.2f);
         }
     }

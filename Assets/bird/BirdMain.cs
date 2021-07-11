@@ -8,12 +8,12 @@ public class BirdMain : MonoBehaviour
 {
     // Things for Awake
     [NonSerialized] public BirdAnimation anim;
-    [NonSerialized] public BirdController cont;
+    [NonSerialized] public BirdPlayerController cont;
     
     private void Awake()
     {
         anim = GetComponent<BirdAnimation>();
-        cont = GetComponent<BirdController>();
+        cont = GetComponent<BirdPlayerController>();
     }
     
     // Members
@@ -21,7 +21,7 @@ public class BirdMain : MonoBehaviour
     {
         Gliding, Flapping, Diving, Braking, Landing, TakingOff
     }
-    public S state;
+    public S state { get; private set; }
     
     
     // Functions
@@ -39,7 +39,6 @@ public class BirdMain : MonoBehaviour
         switch (state)
         {
             case (S.Flapping):
-                cont.Flap(0);
                 break;
             default:
                 break;
