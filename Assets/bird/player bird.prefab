@@ -1000,12 +1000,12 @@ MonoBehaviour:
   yawSpeed: 100
   pitchSpeed: 130
   rollSpeed: 200
-  diveRotationStrength: 0.1
+  diveRotationStrength: 0.25
   naturalGlideAcceleration: 1
   naturalFlappingAcceleration: 2
   naturalDiveAcceleration: 5
   overspeedCorrection: 3
-  diveThreshold: 0.1
+  diveThreshold: 0.5
   flapPushSpeed: 45
   flapHeightGain: 50
   stallBoundaryZSpeed: 2
@@ -1019,6 +1019,7 @@ MonoBehaviour:
   stallTime: 0.8
   crashBackupZSpeed: 4
   liteCrashZSpeedMult: 0.6
+  pitchMode: 2
 --- !u!114 &301205961325452364
 MonoBehaviour:
   m_ObjectHideFlags: 0

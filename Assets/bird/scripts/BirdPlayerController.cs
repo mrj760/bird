@@ -276,9 +276,9 @@ public class BirdPlayerController : MonoBehaviour
                 }
                 else
                 {
-                    localVel.z += (ltinp > diveThreshold) ? /* Add faster dive acceleration if tucking in wings enough */
-                            ltinp * fdt * naturalDiveAcceleration * pitchGravityCalculation(pitchRatio) 
-                          : ltinp * fdt * 1.1f * naturalGlideAcceleration * pitchGravityCalculation(pitchRatio);
+                    if (ltinp > diveThreshold) /* Add faster dive acceleration if tucking in wings enough */
+                            localVel.z += ltinp * fdt * naturalDiveAcceleration * pitchGravityCalculation(pitchRatio);
+                    else goto Gliding;
                 }
                 break;
 
@@ -315,26 +315,26 @@ public class BirdPlayerController : MonoBehaviour
         {
             case (1):
                 /* y = .4893x^5 - .0227x^4 - 1.0978x^3 - .0958x^2 + 1.4248x - .0851 */
-                return (   .4893f * x*x*x*x*x
-                -  .0227f * x*x*x*x
-                - 1.0978f * x*x*x
-                -  .0958f * x*x
-                + 1.4248f * x
-                -  .0851f );
+                return ( .4893f * x*x*x*x*x
+                        -  .0227f * x*x*x*x
+                        - 1.0978f * x*x*x
+                        -  .0958f * x*x
+                        + 1.4248f * x
+                        -  .0851f );
             case (2):
                 /* y = .7001x^4 - .2504x^3 - 1.1753x^2 + 1.5375x - .1721 */
-                return (   .7001f * x*x*x*x
-                -  .2504f * x*x*x
-                - 1.1753f * x*x
-                + 1.5375f * x
-                -  .1721f );
+                return ( .7001f * x*x*x*x
+                        -  .2504f * x*x*x
+                        - 1.1753f * x*x
+                        + 1.5375f * x
+                        -  .1721f );
             case (3):
                 /* y = -0.3265x4 + 0.9258x3 - 0.1413x2 + 0.5873x - 0.0508 */
-                return( -  .3265f * x*x*x*x
-                +  .9258f * x*x*x
-                -  .1413f * x*x
-                +  .5873f * x
-                -  .0508f );
+                return ( -.3265f * x*x*x*x
+                        +  .9258f * x*x*x
+                        -  .1413f * x*x
+                        +  .5873f * x
+                        -  .0508f );
             case (4):
                 /* y = 2x - .1 */
                 return 2*x - .3333333f;
